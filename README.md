@@ -1,7 +1,6 @@
 # Moin, I'm Jacob! 👋
 
 ![Jacob's GitHub stats](https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=transparent)
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JacobMenge&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
 
 
 ## 🌟 About Me
