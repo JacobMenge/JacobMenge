@@ -1,5 +1,7 @@
 # Moin, I'm Jacob! 👋
 
+![Jacob's GitHub stats](https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=radical)
+
 ## 🌟 About Me
 
 - 🔭 I'm currently working on: **Bachelor's Thesis**
