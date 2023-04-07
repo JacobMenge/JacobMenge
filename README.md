@@ -12,6 +12,8 @@
 - 🌱 I'm currently learning: **Parallel Programming in Java**
 - 📫 How to reach me: **mengejacob@gmail.com**
 
+I am fascinated by the possibilities of programming to create impressive solutions and creative innovations. My goal is to always stay up-to-date with the latest developments and to use them efficiently in order to turn exciting ideas into reality.
+
 ## 💻 Technologies & Tools
 
 ![Python](https://img.shields.io/badge/-Python-black?style=flat-square&logo=Python)
