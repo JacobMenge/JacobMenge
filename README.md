@@ -34,3 +34,7 @@ I am fascinated by the possibilities of programming to create impressive solutio
 ![Mac](https://img.shields.io/badge/-Mac-black?style=flat-square&logo=apple)
 ![Windows](https://img.shields.io/badge/-Windows-black?style=flat-square&logo=windows)
 ![Linux](https://img.shields.io/badge/-Linux-black?style=flat-square&logo=linux)
+[![AWS](https://img.shields.io/badge/-AWS-000000?style=flat-square&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
+
+
+
