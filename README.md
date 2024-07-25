@@ -10,11 +10,6 @@
 
 I am fascinated by the possibilities of programming to create impressive solutions and creative innovations. My goal is to always stay up-to-date with the latest developments and to use them efficiently in order to turn exciting ideas into reality.
 
-## 🚀 Projects
-
-- **Project Name**: Brief description and [link to the project](#).
-- **Another Project**: Brief description and [link to the project](#).
-
 ## 💻 Technologies & Tools
 
 ![Python](https://img.shields.io/badge/-Python-black?style=flat-square&logo=Python)
