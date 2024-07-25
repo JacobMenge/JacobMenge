@@ -42,7 +42,7 @@ I am fascinated by the possibilities of programming to create impressive solutio
 
 <p align="center">
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=JacobMenge&theme=transparent" alt="Jacob's GitHub Streak">
-  <img src="https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=transparent" alt="Jacob's GitHub stats">
+ 
   <a href="https://github.com/JacobMenge/github-readme-stats">
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JacobMenge&langs_count=10&theme=transparent" alt="Top Langs">
   </a>
