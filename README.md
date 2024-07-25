@@ -35,7 +35,18 @@ I am fascinated by the possibilities of programming to create impressive solutio
 ![Mac](https://img.shields.io/badge/-Mac-black?style=flat-square&logo=apple)
 ![Windows](https://img.shields.io/badge/-Windows-black?style=flat-square&logo=windows)
 ![Linux](https://img.shields.io/badge/-Linux-black?style=flat-square&logo=linux)
+![Terraform](https://img.shields.io/badge/-Terraform-black?style=flat-square&logo=terraform)
+![Jenkins](https://img.shields.io/badge/-Jenkins-black?style=flat-square&logo=jenkins)
+![Ansible](https://img.shields.io/badge/-Ansible-black?style=flat-square&logo=ansible)
+![Prometheus](https://img.shields.io/badge/-Prometheus-black?style=flat-square&logo=prometheus)
+![Grafana](https://img.shields.io/badge/-Grafana-black?style=flat-square&logo=grafana)
 [![AWS](https://img.shields.io/badge/-AWS-000000?style=flat-square&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
+![AWS CloudFormation](https://img.shields.io/badge/-AWS%20CloudFormation-black?style=flat-square&logo=amazon-aws&logoColor=white)
+![AWS Lambda](https://img.shields.io/badge/-AWS%20Lambda-black?style=flat-square&logo=amazon-aws&logoColor=white)
+![AWS S3](https://img.shields.io/badge/-AWS%20S3-black?style=flat-square&logo=amazon-aws&logoColor=white)
+![AWS EC2](https://img.shields.io/badge/-AWS%20EC2-black?style=flat-square&logo=amazon-aws&logoColor=white)
+![AWS RDS](https://img.shields.io/badge/-AWS%20RDS-black?style=flat-square&logo=amazon-aws&logoColor=white)
+
 
 ## 📈 GitHub Stats
 
@@ -47,11 +58,5 @@ I am fascinated by the possibilities of programming to create impressive solutio
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JacobMenge&langs_count=10&theme=transparent" alt="Top Langs">
   </a>
 </p>
-
-## 🤝 Connect with Me
-
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black?style=flat-square&logo=LinkedIn&logoColor=blue)](https://linkedin.com/in/jacobmenge)
-[![Twitter](https://img.shields.io/badge/-Twitter-black?style=flat-square&logo=Twitter&logoColor=blue)](https://twitter.com/jacobmenge)
-[![Website](https://img.shields.io/badge/-Website-black?style=flat-square&logo=website&logoColor=white)](https://jacobmenge.com)
 
 
