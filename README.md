@@ -2,9 +2,12 @@
  Moin, I'm Jacob! 👋
 </h1>
 
-
-![Jacob's GitHub stats](https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=transparent)
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JacobMenge&langs_count=10&theme=transparent)](https://github.com/JacobMenge/github-readme-stats)
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=transparent" alt="Jacob's GitHub stats">
+  <a href="https://github.com/JacobMenge/github-readme-stats">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=JacobMenge&langs_count=10&theme=transparent" alt="Top Langs">
+  </a>
+</p>
 
 ## 🌟 About Me
 
@@ -13,6 +16,11 @@
 - 📫 How to reach me: **mengejacob@gmail.com**
 
 I am fascinated by the possibilities of programming to create impressive solutions and creative innovations. My goal is to always stay up-to-date with the latest developments and to use them efficiently in order to turn exciting ideas into reality.
+
+## 🚀 Projects
+
+- **Project Name**: Brief description and [link to the project](#).
+- **Another Project**: Brief description and [link to the project](#).
 
 ## 💻 Technologies & Tools
 
@@ -36,5 +44,16 @@ I am fascinated by the possibilities of programming to create impressive solutio
 ![Linux](https://img.shields.io/badge/-Linux-black?style=flat-square&logo=linux)
 [![AWS](https://img.shields.io/badge/-AWS-000000?style=flat-square&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 
+## 📈 GitHub Stats
+
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=JacobMenge&theme=transparent" alt="Jacob's GitHub Streak">
+</p>
+
+## 🤝 Connect with Me
+
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black?style=flat-square&logo=LinkedIn&logoColor=blue)](https://linkedin.com/in/jacobmenge)
+[![Twitter](https://img.shields.io/badge/-Twitter-black?style=flat-square&logo=Twitter&logoColor=blue)](https://twitter.com/jacobmenge)
+[![Website](https://img.shields.io/badge/-Website-black?style=flat-square&logo=website&logoColor=white)](https://jacobmenge.com)
 
 
