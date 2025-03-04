@@ -41,6 +41,7 @@ I am fascinated by the possibilities of programming to create impressive solutio
 ![AWS S3](https://img.shields.io/badge/-AWS%20S3-black?style=flat-square&logo=amazon-aws&logoColor=white)
 ![AWS EC2](https://img.shields.io/badge/-AWS%20EC2-black?style=flat-square&logo=amazon-aws&logoColor=white)
 ![AWS RDS](https://img.shields.io/badge/-AWS%20RDS-black?style=flat-square&logo=amazon-aws&logoColor=white)
+![Azure](https://img.shields.io/badge/-Azure-black?style=flat-square&logo=microsoft-azure&logoColor=white)
 
 
 
