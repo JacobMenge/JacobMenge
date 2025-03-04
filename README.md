@@ -1,20 +1,21 @@
 <h1 align="center">
  Moin, I'm Jacob! 👋
-</h1>
+</h1> 
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=JacobMenge&color=blue" alt="Profile Views" />
+</p>
 
 ## 🌟 About Me
 
-🔭 Currently working on my **Bachelor's Thesis**, where I explore **Graph Clustering in Python**  
-🎯 Passionate about **Software Engineering, Cloud DevOps & Teaching** 
-📫 How to reach me: **mengejacob@gmail.com**
+- 🔭 Currently working on my **Bachelor's Thesis**, where I explore **Graph Clustering in Python**  
+- 🎯 Passionate about **Software Engineering, Cloud DevOps & Teaching**
+- 📫 How to reach me: **mengejacob@gmail.com**
 
 I'm a passionate **Software Engineer & IT Trainer** with expertise in **backend development, cloud technologies, DevOps, and automation**. I love **teaching, coding, and solving problems** with scalable and efficient solutions.
 
-## 📈 GitHub Stats
+## 📈 GitHub Stats <p align="center">
 | ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=transparent&border_color=ffffff) | [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JacobMenge&langs_count=10&theme=transparent&border_color=ffffff)](https://github.com/JacobMenge/github-readme-stats) |
 |--------------|--------------|
-
-![Profile Views](https://komarev.com/ghpvc/?username=JacobMenge&color=blue)
 
 [![trophy](https://github-profile-trophy.vercel.app/?username=JacobMenge&theme=transparent)](https://github.com/ryo-ma/github-profile-trophy)
 
