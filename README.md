@@ -14,7 +14,7 @@
 I'm a passionate **Software Engineer & IT Trainer** with expertise in **backend development, cloud technologies, DevOps, and automation**. I love **teaching, coding, and solving problems** with scalable and efficient solutions.
 
 ## 📈 GitHub Stats <p align="center">
-| ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=transparent&border_color=ffffff) | [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=&langs_count=10&theme=transparent&border_color=ffffff)](https://github.com/JacobMenge/github-readme-stats) |
+| ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=JacobMenge&show_icons=true&theme=transparent&border_color=ffffff) | [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JacobMenge&langs_count=10&theme=transparent&border_color=ffffff)](https://github.com/JacobMenge/github-readme-stats) |
 |--------------|--------------|
 
 [![trophy](https://github-profile-trophy.vercel.app/?username=JacobMenge&theme=transparent)](https://github.com/ryo-ma/github-profile-trophy)
