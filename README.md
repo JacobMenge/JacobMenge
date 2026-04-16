@@ -7,7 +7,7 @@
 
 ## 🌟 Über mich
 
-- 🎓 **Dozent** für Linux, Cloud Computing, Python & DevOps (IHK-zertifiziert)
+- 🎓 **Dozent** für Linux, Cloud Computing, Python & DevOps
 - ☁️ **DevOps Engineer** – Cloud-Architekturen, Automatisierung & KI-gestützte Workflows
 - 📱 **Content Creator** [@jacob.decoded](https://www.jacob-decoded.de) – Tech & KI für alle erklärt
 - 🌐 **Website:** [jacob-decoded.de](https://www.jacob-decoded.de)
