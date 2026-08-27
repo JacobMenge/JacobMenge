@@ -5,7 +5,7 @@
   <a href="https://www.instagram.com/jacob.decoded"><img src="https://img.shields.io/badge/Instagram-@jacob.decoded-FFB020?style=flat&logo=instagram&logoColor=black" alt="Instagram" /></a>
   <a href="https://www.tiktok.com/@jacob.decoded"><img src="https://img.shields.io/badge/TikTok-@jacob.decoded-FFB020?style=flat&logo=tiktok&logoColor=black" alt="TikTok" /></a>
   <a href="https://www.youtube.com/@jacob.decoded"><img src="https://img.shields.io/badge/YouTube-jacob.decoded-FFB020?style=flat&logo=youtube&logoColor=black" alt="YouTube" /></a>
-  <a href="mailto:moin@jacob-decoded.de"><img src="https://img.shields.io/badge/Mail-moin@jacob--decoded.de-FFB020?style=flat&logo=maildotru&logoColor=black" alt="Mail" /></a>
+  <a href="mailto:mengejacob@gmail.com"><img src="https://img.shields.io/badge/Mail-moin@jacob--decoded.de-FFB020?style=flat&logo=maildotru&logoColor=black" alt="Mail" /></a>
 </p>
 
 ## 🌟 Über mich
