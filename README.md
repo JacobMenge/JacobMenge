@@ -14,7 +14,7 @@ Ich bin **Dozent und DevOps Engineer** mit einer Leidenschaft dafür, komplexe T
 
 - 🎓 **Dozent** für Linux, Cloud Computing, Python & DevOps
 - ☁️ **DevOps Engineer** für Cloud-Architekturen, Automatisierung & KI-gestützte Workflows
-- 📱 **Content Creator** als [@jacob.decoded](https://www.jacob-decoded.de)
+
 
 ## 🛠️ Technologien & Tools
 
