@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126 42" width="126" height="42" role="img" aria-label="TikTok">
+<title>TikTok</title>
+<style>
+  text { font-family: 'Cascadia Mono', Consolas, 'SF Mono', Menlo, 'DejaVu Sans Mono', 'Liberation Mono', monospace; }
+</style>
+<defs>
+</defs>
+<rect x="1.0" y="1" width="124.2" height="40" rx="20.0" fill="#0F1419"/><rect x="1.0" y="1" width="124.2" height="40" rx="20.0" fill="#00E676" fill-opacity=".08" stroke="#00E676" stroke-opacity=".55"/><circle cx="24.5" cy="26.0" r="3.5" fill="none" stroke="#00E676" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M28.0 26.0V12.5c1 3.5 4 5 7 5" fill="none" stroke="#00E676" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><text x="45.0" y="26.9" font-size="17" fill="#FFFFFF">TikTok</text>
+</svg>

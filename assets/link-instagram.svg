@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 157 42" width="157" height="42" role="img" aria-label="Instagram">
+<title>Instagram</title>
+<style>
+  text { font-family: 'Cascadia Mono', Consolas, 'SF Mono', Menlo, 'DejaVu Sans Mono', 'Liberation Mono', monospace; }
+</style>
+<defs>
+</defs>
+<rect x="1.0" y="1" width="155.3" height="40" rx="20.0" fill="#0F1419"/><rect x="1.0" y="1" width="155.3" height="40" rx="20.0" fill="#00E676" fill-opacity=".08" stroke="#00E676" stroke-opacity=".55"/><rect x="19.5" y="12.5" width="17" height="17" rx="5" fill="none" stroke="#00E676" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28.0" cy="21.0" r="4" fill="none" stroke="#00E676" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32.6" cy="16.4" r="1.1" fill="#00E676"/><text x="45.0" y="26.9" font-size="17" fill="#FFFFFF">Instagram</text>
+</svg>

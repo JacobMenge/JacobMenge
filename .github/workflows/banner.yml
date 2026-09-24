@@ -1,0 +1,46 @@
+name: Banner aktualisieren
+
+on:
+  schedule:
+    - cron: "17 5 * * *"   # täglich morgens (UTC)
+  workflow_dispatch:        # von Hand unter "Actions"
+  push:
+    branches: [main]
+    paths:
+      - scripts/profil.py
+      - .github/workflows/banner.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: banner
+  cancel-in-progress: false
+
+jobs:
+  banner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Grafiken bauen
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/profil.py
+
+      - name: Committen, falls sich etwas geändert hat
+        run: |
+          git add assets/
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Banner: Stand $(date +%d.%m.%Y)"
+          git push

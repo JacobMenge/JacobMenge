@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 137 42" width="137" height="42" role="img" aria-label="YouTube">
+<title>YouTube</title>
+<style>
+  text { font-family: 'Cascadia Mono', Consolas, 'SF Mono', Menlo, 'DejaVu Sans Mono', 'Liberation Mono', monospace; }
+</style>
+<defs>
+</defs>
+<rect x="1.0" y="1" width="134.6" height="40" rx="20.0" fill="#0F1419"/><rect x="1.0" y="1" width="134.6" height="40" rx="20.0" fill="#00E676" fill-opacity=".08" stroke="#00E676" stroke-opacity=".55"/><path d="M23.0 13.0l13 8-13 8z" fill="#00E676"/><text x="45.0" y="26.9" font-size="17" fill="#FFFFFF">YouTube</text>
+</svg>
