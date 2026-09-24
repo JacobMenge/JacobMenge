@@ -38,7 +38,7 @@
     <stop offset="0" stop-color="#00E676" stop-opacity="0"/><stop offset=".5" stop-color="#00E676" stop-opacity=".07"/>
     <stop offset="1" stop-color="#00E676" stop-opacity="0"/>
   </linearGradient>
-  <clipPath id="terminal"><rect x="700" y="40" width="444" height="280"/></clipPath>
+  <clipPath id="terminal"><rect x="700" y="30" width="444" height="296"/></clipPath>
   <filter id="weich" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
 </defs>
 <g clip-path="url(#rahmen)">
@@ -119,26 +119,26 @@
   <text x="60" y="318" font-size="15" fill="#9CA3AF" class="rein" style="animation-delay:2.1s">Dozent · DevOps Engineer · Linux, Cloud &amp; Python</text>
 
   <g class="rein" style="animation-delay:.3s">
-    <rect x="700" y="40" width="460" height="280" rx="12" fill="#0F1419" fill-opacity=".94" stroke="#2A2F36"/>
-    <path d="M700 74h460" stroke="#2A2F36"/>
-    <circle cx="720" cy="57" r="6" fill="#FF5F57"/>
-    <circle cx="740" cy="57" r="6" fill="#FEBC2E"/>
-    <circle cx="760" cy="57" r="6" fill="#28C840"/>
-    <text x="960" y="62" font-size="13" fill="#9CA3AF" text-anchor="middle">live · stand 24.09.2026</text>
+    <rect x="700" y="30" width="460" height="296" rx="12" fill="#0F1419" stroke="#2A2F36"/>
+    <path d="M700 64h460" stroke="#2A2F36"/>
+    <circle cx="720" cy="47" r="6" fill="#FF5F57"/>
+    <circle cx="740" cy="47" r="6" fill="#FEBC2E"/>
+    <circle cx="760" cy="47" r="6" fill="#28C840"/>
+    <text x="960" y="52" font-size="13" fill="#9CA3AF" text-anchor="middle">live · stand 24.09.2026</text>
   </g>
   <g clip-path="url(#terminal)">
-  <text x="722" y="106" class="zeile befehl" style="animation-delay:0.60s">$ repo-radar JacobMenge --profil</text>
-  <text x="722" y="129" class="zeile" style="animation-delay:0.85s"><tspan fill="#9CA3AF">repos</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">20</tspan></text>
-  <text x="722" y="152" class="zeile" style="animation-delay:1.10s"><tspan fill="#9CA3AF">sterne</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">28</tspan></text>
-  <text x="722" y="175" class="zeile" style="animation-delay:1.35s"><tspan fill="#9CA3AF">forks</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">23</tspan></text>
-  <text x="722" y="198" class="zeile" style="animation-delay:1.60s"><tspan fill="#9CA3AF">prs gemergt</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">12</tspan></text>
-  <text x="722" y="221" class="zeile" style="animation-delay:1.85s"><tspan fill="#9CA3AF">sprachen</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">JavaScript · Python · Shell</tspan></text>
-  <text x="722" y="256" class="zeile befehl" style="animation-delay:2.35s">$ youtube --neueste</text>
-  <text x="722" y="279" class="zeile" style="animation-delay:2.60s"><tspan fill="#00E676">▶</tspan><tspan x="740" fill="#FFFFFF">Mit WLAN durch Wände sehen? So funktionier…</tspan></text>
-  <text x="722" y="302" class="zeile" style="animation-delay:2.85s"><tspan fill="#00E676">▶</tspan><tspan x="740" fill="#FFFFFF">Forscher bauen einen Computer, der mit DNA…</tspan></text>
+  <text x="722" y="94" class="zeile befehl" style="animation-delay:0.60s">$ repo-radar JacobMenge --profil</text>
+  <text x="722" y="116" class="zeile" style="animation-delay:0.85s"><tspan fill="#9CA3AF">repos</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">20</tspan></text>
+  <text x="722" y="138" class="zeile" style="animation-delay:1.10s"><tspan fill="#9CA3AF">sterne</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">28</tspan></text>
+  <text x="722" y="160" class="zeile" style="animation-delay:1.35s"><tspan fill="#9CA3AF">forks</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">23</tspan></text>
+  <text x="722" y="182" class="zeile" style="animation-delay:1.60s"><tspan fill="#9CA3AF">prs gemergt</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">12</tspan></text>
+  <text x="722" y="204" class="zeile" style="animation-delay:1.85s"><tspan fill="#9CA3AF">sprachen</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">JavaScript · Python · Shell</tspan></text>
+  <text x="722" y="234" class="zeile befehl" style="animation-delay:2.35s">$ youtube --neueste</text>
+  <text x="722" y="256" class="zeile" style="animation-delay:2.60s"><tspan fill="#00E676">▶</tspan><tspan x="740" fill="#FFFFFF">Mit WLAN durch Wände sehen? So funktionier…</tspan></text>
+  <text x="722" y="278" class="zeile" style="animation-delay:2.85s"><tspan fill="#00E676">▶</tspan><tspan x="740" fill="#FFFFFF">Forscher bauen einen Computer, der mit DNA…</tspan></text>
   </g>
-  <rect x="722" y="310" width="9" height="17" fill="#00E676" class="cursor rein" style="animation-delay:3.10s"/>
+  <rect x="722" y="285" width="9" height="17" fill="#00E676" class="cursor rein" style="animation-delay:3.10s"/>
 </g>
 <rect x=".5" y=".5" width="1199" height="359" rx="18" fill="none" stroke="#00E676" stroke-opacity=".25"/>
 </svg>
-<!-- daten:93edb291691bdc34 -->
+<!-- daten:2105a19e722b8301 -->

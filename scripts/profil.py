@@ -289,7 +289,7 @@ def banner(gh: dict, videos: list[dict], stand: datetime) -> str:
     chip2, _ = pille(60 + b1 + 14, 236, WEBSITE, zeichen="globus")
 
     # Terminal rechts
-    tx, ty, tb, th = 700, 40, 460, 280
+    tx, ty, tb, th = 700, 30, 460, 296
     innen_b = tb - 44
     groesse = 15
     max_zeichen = int(innen_b / (groesse * ZEICHEN_EM))
@@ -306,10 +306,10 @@ def banner(gh: dict, videos: list[dict], stand: datetime) -> str:
     zeilen += [("video", kuerzen(v["titel"], max_zeichen - 2)) for v in videos]
 
     terminal = []
-    y = ty + 66
+    y = ty + 64
     for n, (art, inhalt) in enumerate(zeilen):
         if art == "abstand":
-            y += 12
+            y += 8
             continue
         stil = f'style="animation-delay:{0.6 + n * 0.25:.2f}s"'
         x = tx + 22
@@ -324,8 +324,9 @@ def banner(gh: dict, videos: list[dict], stand: datetime) -> str:
         else:
             terminal.append(f'  <text x="{x}" y="{y}" class="zeile" {stil}><tspan fill="{GRUEN}">▶</tspan>'
                             f'<tspan x="{x + 2 * groesse * ZEICHEN_EM:.0f}" fill="{WEISS}">{esc(inhalt)}</tspan></text>')
-        y += 23
+        y += 22
     cursor_verz = 0.6 + len(zeilen) * 0.25
+    assert y + 6 <= ty + th, "Terminal-Inhalt ist höher als das Fenster"
 
     stil = regen_css + f"""  .titel {{ font-size: {TITEL_GROESSE}px; font-weight: bold; }}
   .buchstabe {{ animation: an .01s steps(1) both; }}
@@ -373,7 +374,7 @@ def banner(gh: dict, videos: list[dict], stand: datetime) -> str:
   <text x="60" y="318" font-size="15" fill="{GRAU}" class="rein" style="animation-delay:2.1s">Dozent · DevOps Engineer · Linux, Cloud &amp; Python</text>
 
   <g class="rein" style="animation-delay:.3s">
-    <rect x="{tx}" y="{ty}" width="{tb}" height="{th}" rx="12" fill="{FLAECHE}" fill-opacity=".94" stroke="{LINIE}"/>
+    <rect x="{tx}" y="{ty}" width="{tb}" height="{th}" rx="12" fill="{FLAECHE}" stroke="{LINIE}"/>
     <path d="M{tx} {ty + 34}h{tb}" stroke="{LINIE}"/>
     <circle cx="{tx + 20}" cy="{ty + 17}" r="6" fill="#FF5F57"/>
     <circle cx="{tx + 40}" cy="{ty + 17}" r="6" fill="#FEBC2E"/>
