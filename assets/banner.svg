@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img" aria-label="jacob.decoded – IT, Technik und spannende Projekte. YouTube @jacob.decoded, www.jacob-decoded.de. 19 Repos, 28 Sterne. Neuestes Video: Mit WLAN durch Wände sehen? So funktioniert es!">
-<title>jacob.decoded – IT, Technik und spannende Projekte. YouTube @jacob.decoded, www.jacob-decoded.de. 19 Repos, 28 Sterne. Neuestes Video: Mit WLAN durch Wände sehen? So funktioniert es!</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img" aria-label="jacob.decoded – IT, Technik und spannende Projekte. YouTube @jacob.decoded, www.jacob-decoded.de. 20 Repos, 28 Sterne. Neuestes Video: Mit WLAN durch Wände sehen? So funktioniert es!">
+<title>jacob.decoded – IT, Technik und spannende Projekte. YouTube @jacob.decoded, www.jacob-decoded.de. 20 Repos, 28 Sterne. Neuestes Video: Mit WLAN durch Wände sehen? So funktioniert es!</title>
 <style>
   text { font-family: 'Cascadia Mono', Consolas, 'SF Mono', Menlo, 'DejaVu Sans Mono', 'Liberation Mono', monospace; }
   .regen { font-size: 16px; animation: fallen linear infinite; }
@@ -128,11 +128,11 @@
   </g>
   <g clip-path="url(#terminal)">
   <text x="722" y="106" class="zeile befehl" style="animation-delay:0.60s">$ repo-radar JacobMenge --profil</text>
-  <text x="722" y="129" class="zeile" style="animation-delay:0.85s"><tspan fill="#9CA3AF">repos</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">19</tspan></text>
+  <text x="722" y="129" class="zeile" style="animation-delay:0.85s"><tspan fill="#9CA3AF">repos</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">20</tspan></text>
   <text x="722" y="152" class="zeile" style="animation-delay:1.10s"><tspan fill="#9CA3AF">sterne</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">28</tspan></text>
   <text x="722" y="175" class="zeile" style="animation-delay:1.35s"><tspan fill="#9CA3AF">forks</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">23</tspan></text>
   <text x="722" y="198" class="zeile" style="animation-delay:1.60s"><tspan fill="#9CA3AF">prs gemergt</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">12</tspan></text>
-  <text x="722" y="221" class="zeile" style="animation-delay:1.85s"><tspan fill="#9CA3AF">sprachen</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">JavaScript · Shell · Python</tspan></text>
+  <text x="722" y="221" class="zeile" style="animation-delay:1.85s"><tspan fill="#9CA3AF">sprachen</tspan><tspan x="850" fill="#FFFFFF" font-weight="bold">JavaScript · Python · Shell</tspan></text>
   <text x="722" y="256" class="zeile befehl" style="animation-delay:2.35s">$ youtube --neueste</text>
   <text x="722" y="279" class="zeile" style="animation-delay:2.60s"><tspan fill="#00E676">▶</tspan><tspan x="740" fill="#FFFFFF">Mit WLAN durch Wände sehen? So funktionier…</tspan></text>
   <text x="722" y="302" class="zeile" style="animation-delay:2.85s"><tspan fill="#00E676">▶</tspan><tspan x="740" fill="#FFFFFF">Forscher bauen einen Computer, der mit DNA…</tspan></text>
@@ -141,4 +141,4 @@
 </g>
 <rect x=".5" y=".5" width="1199" height="359" rx="18" fill="none" stroke="#00E676" stroke-opacity=".25"/>
 </svg>
-<!-- daten:0a22a4d1ed3b79b7 -->
+<!-- daten:93edb291691bdc34 -->
