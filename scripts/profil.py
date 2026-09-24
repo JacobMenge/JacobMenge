@@ -1,19 +1,17 @@
 """Baut die Grafiken für das GitHub-Profil im jacob.decoded-Look.
 
-  assets/banner.svg      animiertes Banner mit Live-Daten (täglich per Action)
+  assets/profil.svg      das ganze Profil als eine Terminal-Sitzung, mit Live-Daten
+  assets/profil-handy.svg  dasselbe schmal für Smartphones
   assets/link-*.svg      Link-Etiketten (Website, YouTube, ...)
-  assets/ueber-mich.svg  Begrüßung und "Über mich"
-  assets/stack.svg       Technologien & Tools
-  assets/fuss.svg        Abschluss
 
 Live-Daten:
   * GitHub-REST-API: öffentliche Repos, Sterne, Forks, Sprachen, gemergte PRs
   * YouTube-Feed des Kanals (RSS, kein API-Schlüssel nötig): neueste Videos
 
 Aufruf:  python scripts/profil.py
-Das Banner wird nur neu geschrieben, wenn sich die Daten geändert haben – so
-entsteht kein täglicher Commit ohne Inhalt. Schlägt ein Abruf fehl, bleibt das
-bisherige Banner stehen.
+Das Profil wird nur neu geschrieben, wenn sich Daten oder Skript geändert
+haben – so entsteht kein täglicher Commit ohne Inhalt. Schlägt ein Abruf fehl,
+bleibt der bisherige Stand stehen.
 """
 
 from __future__ import annotations
@@ -31,13 +29,12 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from collections import Counter
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
 NUTZER = "JacobMenge"
 KANAL_ID = "UCuG3DZ4awzd4rtsIr02TL7Q"
-KANAL = "@jacob.decoded"
-WEBSITE = "www.jacob-decoded.de"
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 
 # Farben wie im restlichen Profil
@@ -50,7 +47,7 @@ GRAU = "#9CA3AF"
 TEXT = "#E5E7EB"
 WEISS = "#FFFFFF"
 
-W = 1200  # alle Grafiken gleich breit, damit sie im README bündig stehen
+W = 1200  # Standardbreite der Grafiken
 
 # Breiteste gängige Monospace-Schrift (Menlo, DejaVu Sans Mono: 0,602 em).
 # Consolas ist schmaler (0,55 em) - dort wird es nur etwas luftiger.
@@ -78,9 +75,9 @@ UEBER = {
         "Ich gehe Fragen nach, die mich nicht loslassen, und probiere selbst aus, was wirklich dahintersteckt.",
     ],
     "punkte": [
-        ("hut", "Dozent", "für Linux, Cloud Computing, Python & DevOps"),
-        ("wolke", "DevOps Engineer", "für Cloud-Architekturen, Automatisierung & KI-gestützte Workflows"),
-        ("klappe", "Creator", "bei ==@jacob.decoded==: Tech-Experimente, Projekte & spannende Fragen rund um IT"),
+        ("Dozent", "für Linux, Cloud Computing, Python & DevOps"),
+        ("DevOps Engineer", "für Cloud-Architekturen, Automatisierung & KI-gestützte Workflows"),
+        ("Creator", "bei ==@jacob.decoded==: Tech-Experimente, Projekte & spannende Fragen rund um IT"),
     ],
 }
 
@@ -159,20 +156,6 @@ def matrix_regen(zufall: random.Random, hoehe: int, x_von: int = 12, x_bis: int 
     return css, "\n".join(spalten)
 
 
-def verlaeufe(hoehe: int) -> str:
-    """Rahmen-Clip und dunkle Kanten oben/unten."""
-    return (f'  <clipPath id="rahmen"><rect width="{W}" height="{hoehe}" rx="18"/></clipPath>\n'
-            f'  <linearGradient id="kanten" x1="0" y1="0" x2="0" y2="1">\n'
-            f'    <stop offset="0" stop-color="{GRUND}"/><stop offset=".18" stop-color="{GRUND}" stop-opacity="0"/>\n'
-            f'    <stop offset=".82" stop-color="{GRUND}" stop-opacity="0"/><stop offset="1" stop-color="{GRUND}"/>\n'
-            f'  </linearGradient>\n')
-
-
-def rand(hoehe: int) -> str:
-    return (f'<rect x=".5" y=".5" width="{W - 1}" height="{hoehe - 1}" rx="18" fill="none" '
-            f'stroke="{GRUEN}" stroke-opacity=".25"/>\n')
-
-
 def symbol(name: str, cx: float, cy: float) -> str:
     """Kleine Linien-Symbole (18 x 18 px) für Etiketten."""
     s = f'fill="none" stroke="{GRUEN}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"'
@@ -189,16 +172,6 @@ def symbol(name: str, cx: float, cy: float) -> str:
     if name == "note":
         return (f'<circle cx="{cx - 3.5:.1f}" cy="{cy + 5:.1f}" r="3.5" {s}/>'
                 f'<path d="M{cx:.1f} {cy + 5:.1f}V{cy - 8.5:.1f}c1 3.5 4 5 7 5" {s}/>')
-    if name == "hut":
-        return (f'<path d="M{cx - 9:.1f} {cy - 3:.1f}l9-4.5 9 4.5-9 4.5z" {s}/>'
-                f'<path d="M{cx - 5:.1f} {cy - 1:.1f}v4.5c0 1.8 10 1.8 10 0v-4.5M{cx + 9:.1f} {cy - 3:.1f}v5" {s}/>')
-    if name == "wolke":
-        return (f'<path d="M{cx - 5:.1f} {cy + 6:.1f}h10.5a4.5 4.5 0 0 0 .5-9 6 6 0 0 0-11.5-1.5 '
-                f'4.5 4.5 0 0 0 .5 10.5z" {s}/>')
-    if name == "klappe":
-        return (f'<rect x="{cx - 8.5:.1f}" y="{cy - 3:.1f}" width="17" height="11" rx="1.5" {s}/>'
-                f'<path d="M{cx - 8.5:.1f} {cy - 3:.1f}l1-5 16 3-1 2M{cx - 3.5:.1f} {cy - 7:.1f}l-1 4.5'
-                f'M{cx + 2:.1f} {cy - 6:.1f}l-1 4" {s}/>')
     if name == "brief":
         return (f'<rect x="{cx - 9:.1f}" y="{cy - 6.5:.1f}" width="18" height="13" rx="2" {s}/>'
                 f'<path d="M{cx - 8.5:.1f} {cy - 5.5:.1f}l8.5 6.5 8.5-6.5" {s}/>')
@@ -257,143 +230,12 @@ def youtube_videos(kanal_id: str, anzahl: int = 2) -> list[dict]:
     ns = {"a": "http://www.w3.org/2005/Atom", "yt": "http://www.youtube.com/xml/schemas/2015"}
     wurzel = ET.fromstring(hole(f"https://www.youtube.com/feeds/videos.xml?channel_id={kanal_id}",
                                 accept="application/atom+xml"))
-    return [{"titel": e.findtext("a:title", "", ns), "id": e.findtext("yt:videoId", "", ns)}
+    return [{"titel": e.findtext("a:title", "", ns), "datum": e.findtext("a:published", "", ns)[:10],
+             "id": e.findtext("yt:videoId", "", ns)}
             for e in wurzel.findall("a:entry", ns)[:anzahl]]
 
 
-# ---------------------------------------------------------------- Banner
-
-TITEL = "jacob.decoded"
-TITEL_X, TITEL_Y, TITEL_GROESSE = 56, 160, 64
-TITEL_SCHRITT = TITEL_GROESSE * ZEICHEN_EM
-
-
-def banner(gh: dict, videos: list[dict], stand: datetime) -> str:
-    H = 360
-    zufall = random.Random(7)
-    regen_css, regen = matrix_regen(zufall, H)
-
-    # Schriftzug: jeder Buchstabe einzeln, damit er getippt erscheint und bei
-    # jeder Schrift an derselben Stelle steht
-    buchstaben, leuchten = [], []
-    for i, z in enumerate(TITEL):
-        x = TITEL_X + i * TITEL_SCHRITT
-        verz = f"animation-delay:{0.3 + i * 0.07:.2f}s"
-        buchstaben.append(f'  <text x="{x:.1f}" y="{TITEL_Y}" class="titel buchstabe" '
-                          f'fill="{WEISS if i < 5 else GRUEN}" style="{verz}">{z}</text>')
-        leuchten.append(f'<text x="{x:.1f}" y="{TITEL_Y}" class="titel">{z}</text>')
-    cursor_x = TITEL_X + len(TITEL) * TITEL_SCHRITT + 4
-
-    # Chips unter dem Untertitel
-    chip1, b1 = pille(60, 236, f"YouTube {KANAL}", zeichen="play")
-    chip2, _ = pille(60 + b1 + 14, 236, WEBSITE, zeichen="globus")
-
-    # Terminal rechts
-    tx, ty, tb, th = 700, 30, 460, 296
-    innen_b = tb - 44
-    groesse = 15
-    max_zeichen = int(innen_b / (groesse * ZEICHEN_EM))
-    zeilen: list[tuple[str, object]] = [
-        ("befehl", f"$ repo-radar {NUTZER} --profil"),
-        ("wert", ("repos", str(gh["repos"]))),
-        ("wert", ("sterne", str(gh["sterne"]))),
-        ("wert", ("forks", str(gh["forks"]))),
-        ("wert", ("prs gemergt", str(gh["prs"]))),
-        ("wert", ("sprachen", " · ".join(gh["sprachen"]) or "–")),
-        ("abstand", None),
-        ("befehl", "$ youtube --neueste"),
-    ]
-    zeilen += [("video", kuerzen(v["titel"], max_zeichen - 2)) for v in videos]
-
-    terminal = []
-    y = ty + 64
-    for n, (art, inhalt) in enumerate(zeilen):
-        if art == "abstand":
-            y += 8
-            continue
-        stil = f'style="animation-delay:{0.6 + n * 0.25:.2f}s"'
-        x = tx + 22
-        if art == "befehl":
-            terminal.append(f'  <text x="{x}" y="{y}" class="zeile befehl" {stil}>{esc(inhalt)}</text>')
-        elif art == "wert":
-            name, wert = inhalt
-            wert = kuerzen(wert, max_zeichen - 14)
-            terminal.append(f'  <text x="{x}" y="{y}" class="zeile" {stil}><tspan fill="{GRAU}">{esc(name)}</tspan>'
-                            f'<tspan x="{x + 14 * groesse * ZEICHEN_EM:.0f}" fill="{WEISS}" font-weight="bold">'
-                            f'{esc(wert)}</tspan></text>')
-        else:
-            terminal.append(f'  <text x="{x}" y="{y}" class="zeile" {stil}><tspan fill="{GRUEN}">▶</tspan>'
-                            f'<tspan x="{x + 2 * groesse * ZEICHEN_EM:.0f}" fill="{WEISS}">{esc(inhalt)}</tspan></text>')
-        y += 22
-    cursor_verz = 0.6 + len(zeilen) * 0.25
-    assert y + 6 <= ty + th, "Terminal-Inhalt ist höher als das Fenster"
-
-    stil = regen_css + f"""  .titel {{ font-size: {TITEL_GROESSE}px; font-weight: bold; }}
-  .buchstabe {{ animation: an .01s steps(1) both; }}
-  @keyframes an {{ from {{ opacity: 0; }} to {{ opacity: 1; }} }}
-  .leuchten {{ opacity: 0; animation: einblenden .6s 1.2s ease-out forwards, pulsieren 4s 1.8s ease-in-out infinite; }}
-  @keyframes einblenden {{ to {{ opacity: .45; }} }}
-  @keyframes pulsieren {{ 0%, 100% {{ opacity: .45; }} 50% {{ opacity: .9; }} }}
-  .cursor {{ animation: blinken 1s steps(1) infinite; }}
-  @keyframes blinken {{ 50% {{ opacity: 0; }} }}
-  .rein {{ opacity: 0; animation: auftauchen .5s ease-out both; }}
-  .zeile {{ font-size: {groesse}px; fill: {TEXT}; opacity: 0; animation: auftauchen .25s ease-out both; }}
-  .befehl {{ fill: {GRUEN}; }}
-  @keyframes auftauchen {{ from {{ opacity: 0; transform: translateX(-6px); }} to {{ opacity: 1; transform: none; }} }}
-  .scan {{ animation: scan 6s linear infinite; }}
-  @keyframes scan {{ from {{ transform: translateY(-40px); }} to {{ transform: translateY({H + 40}px); }} }}
-""" + BEWEGUNG_AUS
-
-    defs = verlaeufe(H) + f"""  <linearGradient id="links" x1="0" x2="1">
-    <stop offset="0" stop-color="{GRUND}" stop-opacity=".96"/>
-    <stop offset=".75" stop-color="{GRUND}" stop-opacity=".9"/>
-    <stop offset="1" stop-color="{GRUND}" stop-opacity="0"/>
-  </linearGradient>
-  <linearGradient id="scanlinie" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="{GRUEN}" stop-opacity="0"/><stop offset=".5" stop-color="{GRUEN}" stop-opacity=".07"/>
-    <stop offset="1" stop-color="{GRUEN}" stop-opacity="0"/>
-  </linearGradient>
-  <clipPath id="terminal"><rect x="{tx}" y="{ty}" width="{tb - 16}" height="{th}"/></clipPath>
-  <filter id="weich" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
-"""
-    nl = "\n"
-    inhalt = f"""<g clip-path="url(#rahmen)">
-  <rect width="{W}" height="{H}" fill="{GRUND}"/>
-{regen}
-  <rect width="{W}" height="{H}" fill="url(#kanten)"/>
-  <rect width="{tx + 40}" height="{H}" fill="url(#links)"/>
-  <rect class="scan" width="{W}" height="40" fill="url(#scanlinie)"/>
-
-  <text x="60" y="86" font-size="17" fill="{GRAU}" class="rein" style="animation-delay:.1s">~ $ whoami</text>
-  <g class="leuchten" fill="{GRUEN}" filter="url(#weich)">{"".join(leuchten)}</g>
-{nl.join(buchstaben)}
-  <rect x="{cursor_x:.0f}" y="114" width="16" height="54" fill="{GRUEN}" class="cursor"/>
-  <text x="60" y="204" font-size="18" fill="{TEXT}" class="rein" style="animation-delay:1.4s">IT, Technik &amp; spannende Projekte – verständlich erklärt.</text>
-  <g class="rein" style="animation-delay:1.7s">{chip1}</g>
-  <g class="rein" style="animation-delay:1.9s">{chip2}</g>
-  <text x="60" y="318" font-size="15" fill="{GRAU}" class="rein" style="animation-delay:2.1s">Dozent · DevOps Engineer · Linux, Cloud &amp; Python</text>
-
-  <g class="rein" style="animation-delay:.3s">
-    <rect x="{tx}" y="{ty}" width="{tb}" height="{th}" rx="12" fill="{FLAECHE}" stroke="{LINIE}"/>
-    <path d="M{tx} {ty + 34}h{tb}" stroke="{LINIE}"/>
-    <circle cx="{tx + 20}" cy="{ty + 17}" r="6" fill="#FF5F57"/>
-    <circle cx="{tx + 40}" cy="{ty + 17}" r="6" fill="#FEBC2E"/>
-    <circle cx="{tx + 60}" cy="{ty + 17}" r="6" fill="#28C840"/>
-    <text x="{tx + tb / 2 + 30:.0f}" y="{ty + 22}" font-size="13" fill="{GRAU}" text-anchor="middle">live · stand {stand:%d.%m.%Y}</text>
-  </g>
-  <g clip-path="url(#terminal)">
-{nl.join(terminal)}
-  </g>
-  <rect x="{tx + 22}" y="{y - 15}" width="9" height="17" fill="{GRUEN}" class="cursor rein" style="animation-delay:{cursor_verz:.2f}s"/>
-</g>
-{rand(H)}"""
-    label = (f"jacob.decoded – IT, Technik und spannende Projekte. YouTube {KANAL}, {WEBSITE}. "
-             f"{gh['repos']} Repos, {gh['sterne']} Sterne. Neuestes Video: "
-             f"{videos[0]['titel'] if videos else '–'}")
-    return svg(H, label, stil, defs, inhalt)
-
-
-# ---------------------------------------------------------------- Fenster
+# ---------------------------------------------------------------- Text
 
 # Einfache Auszeichnung in den Texten: **fett** (weiß), ==betont== (grün)
 AUSZEICHNUNG = re.compile(r"(\*\*.+?\*\*|==.+?==)")
@@ -428,11 +270,14 @@ def umbrechen(text: str, max_zeichen: int) -> list[list[tuple[str, str]]]:
             laenge = 0
         zeilen[-1].append((wort, stil))
         laenge += len(wort)
+    # Kein einzelnes Wort allein in der letzten Zeile
+    if len(zeilen) > 1 and len(zeilen[-1]) == 1 and len(zeilen[-2]) > 3:
+        zeilen[-1].insert(0, zeilen[-2].pop())
     return zeilen
 
 
-def textzeile(x: float, y: float, teile: list[tuple[str, str]], groesse: int, extra: str = "") -> str:
-    farben = {"normal": f'fill="{TEXT}"', "fett": f'fill="{WEISS}" font-weight="bold"',
+def textzeile(x: float, y: float, teile: list[tuple[str, str]], groesse: int, farbe: str = TEXT) -> str:
+    farben = {"normal": f'fill="{farbe}"', "fett": f'fill="{WEISS}" font-weight="bold"',
               "gruen": f'fill="{GRUEN}" font-weight="bold"'}
     # Gleiche Stile zusammenfassen, damit Leerzeichen innerhalb eines tspans bleiben
     gruppen: list[list[str]] = []
@@ -442,146 +287,239 @@ def textzeile(x: float, y: float, teile: list[tuple[str, str]], groesse: int, ex
         else:
             gruppen.append([wort, stil])
     tspans = "".join(f"<tspan {farben[stil]}>{esc(t)}</tspan>" for t, stil in gruppen)
-    return f'<text x="{x:.0f}" y="{y:.0f}" font-size="{groesse}" xml:space="preserve"{extra}>{tspans.rstrip()}</text>'
-
-
-def fenster(hoehe: int, titel: str, befehl: str, argument: str) -> str:
-    """Terminalfenster mit Titelleiste und Eingabezeile - der Rahmen jedes Abschnitts."""
-    return f"""<g clip-path="url(#rahmen)">
-  <rect width="{W}" height="{hoehe}" fill="{FLAECHE}"/>
-  <rect width="{W}" height="48" fill="{GRUND}"/>
-  <path d="M0 48.5h{W}" stroke="{LINIE}"/>
-  <circle cx="30" cy="24" r="6" fill="#FF5F57"/><circle cx="50" cy="24" r="6" fill="#FEBC2E"/><circle cx="70" cy="24" r="6" fill="#28C840"/>
-  <text x="{W / 2:.0f}" y="30" font-size="16" fill="{GRAU}" text-anchor="middle">{esc(titel)}</text>
-  <text x="{RAND_X}" y="98" font-size="22"><tspan fill="{GRUEN}" font-weight="bold">$ </tspan><tspan fill="{GRUEN}" font-weight="bold">{esc(befehl)} </tspan><tspan fill="{WEISS}" font-weight="bold">{esc(argument)}</tspan></text>
-"""
+    return f'<text x="{x:.0f}" y="{y:.0f}" font-size="{groesse}" xml:space="preserve">{tspans.rstrip()}</text>'
 
 
 FENSTER_STIL = """  .rein { opacity: 0; animation: auftauchen .45s ease-out both; }
   @keyframes auftauchen { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 """ + BEWEGUNG_AUS
 
-RAND_X = 60
+# ---------------------------------------------------------------- Profil als Terminal-Sitzung
+
+TITEL = "jacob.decoded"
 
 
-def trennlinie(y: float) -> str:
-    return f'<path d="M{RAND_X} {y:.0f}h{W - 2 * RAND_X}" stroke="{LINIE}" stroke-dasharray="2 6"/>'
+@dataclass(frozen=True)
+class Layout:
+    """Maße einer Fassung. Die Handy-Fassung ist schmaler und hat relativ größere Schrift."""
+    weite: int
+    rand: int          # linker und rechter Innenabstand
+    fliess: int        # Fließtext
+    zeile: int         # Zeilenabstand im Fließtext
+    befehl: int        # Eingabezeilen ($ ...)
+    name: int          # jacob.decoded
+    rollen: int
+    leiste: int        # Titelleiste
+    abschnitt: int     # Luft vor jedem Befehl
+    schmal: bool
 
 
-def ueber_mich() -> str:
-    """Begrüßung, Rollen, beide Absätze und die drei Punkte aus dem Profil."""
+DESKTOP = Layout(weite=1200, rand=72, fliess=20, zeile=33, befehl=22, name=78, rollen=24,
+                 leiste=52, abschnitt=64, schmal=False)
+HANDY = Layout(weite=640, rand=36, fliess=24, zeile=37, befehl=26, name=64, rollen=25,
+               leiste=60, abschnitt=60, schmal=True)
+
+
+def ohne_auszeichnung(text: str) -> str:
+    return AUSZEICHNUNG.sub(lambda m: m.group(0).strip("*="), text)
+
+
+def sitzung(gh: dict, videos: list[dict], stand: datetime, lay: Layout = DESKTOP) -> str:
+    """Das ganze Profil als ein Terminalfenster, das man von oben nach unten liest."""
+    x, w = lay.rand, lay.weite
+    zeichen_pro_zeile = int((w - 2 * x) / (lay.fliess * ZEICHEN_EM))
+    einzug = round(1.6 * lay.fliess)
     teile: list[str] = []
-    verz = iter(0.15 * n for n in range(40))
+    verzoegerung = iter(0.1 * n for n in range(200))
 
-    def rein(inhalt: str) -> str:
-        return f'  <g class="rein" style="animation-delay:{next(verz):.2f}s">{inhalt}</g>'
+    def abschnitt(inhalt: str) -> None:
+        teile.append(f'<g class="rein" style="animation-delay:{next(verzoegerung):.2f}s">{inhalt}</g>')
 
-    y = 166
-    gruss = UEBER["gruss"]
-    teile.append(rein(f'<text x="{RAND_X}" y="{y}" font-size="48" font-weight="bold" fill="{WEISS}">{esc(gruss)}'
-                      f'<tspan fill="{GRUEN}" class="cursor-text"> █</tspan></text>'))
-    y += 44
-    teile.append(rein(f'<text x="{RAND_X}" y="{y}" font-size="22" font-weight="bold" fill="{GRUEN}">'
-                      f'{esc(UEBER["rollen"])}</text>'))
-    y += 34
-    teile.append(rein(f'<text x="{RAND_X}" y="{y}" font-size="20" fill="{GRAU}">{esc(UEBER["claim"])}</text>'))
-    y += 38
-    teile.append(trennlinie(y))
-    y += 20
+    def befehl(y: float, kommando: str, argument: str = "") -> None:
+        arg = f' <tspan fill="{TEXT}">{esc(argument)}</tspan>' if argument else ""
+        abschnitt(f'<text x="{x}" y="{y:.0f}" font-size="{lay.befehl}" font-weight="bold">'
+                  f'<tspan fill="{GRUEN}">$ </tspan><tspan fill="{WEISS}">{esc(kommando)}</tspan>{arg}</text>')
 
-    groesse, zeilenhoehe = 21, 34
-    max_zeichen = int((W - 2 * RAND_X) / (groesse * ZEICHEN_EM))
-    for absatz in UEBER["absaetze"]:
-        zeilen = umbrechen(absatz, max_zeichen)
-        block = []
-        for zeile in zeilen:
-            y += zeilenhoehe
-            block.append(textzeile(RAND_X, y, zeile, groesse))
-        teile.append(rein("".join(block)))
-        y += 20
-
-    y += 6
-    teile.append(trennlinie(y))
-    y += 14
-    einzug = RAND_X + 52
-    max_punkt = int((W - einzug - RAND_X) / (groesse * ZEICHEN_EM))
-    for zeichen, titel, rest in UEBER["punkte"]:
-        block = []
-        zeilen = umbrechen(f"**{titel}** {rest}", max_punkt)
-        y += 48
-        block.append(f'<rect x="{RAND_X}" y="{y - 25}" width="34" height="34" rx="9" fill="{GRUEN}" '
-                     f'fill-opacity=".1" stroke="{GRUEN}" stroke-opacity=".5"/>' + symbol(zeichen, RAND_X + 17, y - 8))
+    def absatz(y: float, text: str, groesse: int, max_zeichen: int, links: float, farbe: str = TEXT) -> float:
+        """Setzt umbrochenen Text, gibt das y der letzten Zeile zurück."""
+        zeilen = umbrechen(text, max_zeichen)
+        teile_absatz = []
         for i, zeile in enumerate(zeilen):
-            block.append(textzeile(einzug, y + i * zeilenhoehe, zeile, groesse))
-        y += (len(zeilen) - 1) * zeilenhoehe
-        teile.append(rein("".join(block)))
-    hoehe = y + 40
+            teile_absatz.append(textzeile(links, y + i * lay.zeile, zeile, groesse, farbe))
+        abschnitt("".join(teile_absatz))
+        return y + (len(zeilen) - 1) * lay.zeile
 
-    nl = "\n"
-    inhalt = (fenster(hoehe, "jacob@decoded: ~", "cat", "über-mich.md") + nl.join(teile) + "\n</g>\n" + rand(hoehe))
-    label = " ".join([gruss, UEBER["rollen"], UEBER["claim"]]
-                     + [AUSZEICHNUNG.sub(lambda m: m.group(0).strip("*="), a) for a in UEBER["absaetze"]]
-                     + [f"{t} {AUSZEICHNUNG.sub(lambda m: m.group(0).strip('*='), r)}." for _, t, r in UEBER["punkte"]])
-    return svg(hoehe, label, FENSTER_STIL + CURSOR_TEXT, verlaeufe(hoehe), inhalt)
+    # --- whoami
+    y = lay.leiste + 72
+    befehl(y, "whoami")
+    y += round(lay.name * 1.18)
+    schritt = lay.name * ZEICHEN_EM
+    teile.append("".join(
+        f'<text x="{x - 3 + i * schritt:.1f}" y="{y}" class="buchstabe" font-size="{lay.name}" font-weight="bold" '
+        f'fill="{WEISS if i < 5 else GRUEN}" style="animation-delay:{0.2 + i * 0.05:.2f}s">{z}</text>'
+        for i, z in enumerate(TITEL)))
+    rollen = [r.strip() for r in UEBER["rollen"].split("·")]
+    punkt = f'<tspan fill="{GRUEN}"> · </tspan>'
+    if lay.schmal:  # Rollen untereinander
+        y += round(lay.rollen * .5)
+        for rolle in rollen:
+            y += round(lay.rollen * 1.45)
+            abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.rollen}" fill="{TEXT}">{esc(rolle)}</text>')
+    else:
+        y += round(lay.rollen * 2)
+        abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.rollen}" fill="{TEXT}">'
+                  + punkt.join(esc(r) for r in rollen) + "</text>")
+    y += round(lay.zeile * 1.15)
+    y = absatz(y, UEBER["claim"], lay.fliess, zeichen_pro_zeile, x, GRAU)
+
+    # --- über mich
+    y += lay.abschnitt
+    befehl(y, "cat", "über-mich.md")
+    y += round(lay.zeile * 1.55)
+    abschnitt(f'<text x="{x}" y="{y}" font-size="{round(lay.fliess * 1.35)}" font-weight="bold" '
+              f'fill="{WEISS}">{esc(UEBER["gruss"])}</text>')
+    for text in UEBER["absaetze"]:
+        y = absatz(y + lay.zeile + 12, text, lay.fliess, zeichen_pro_zeile, x)
+    y += 10
+    for titel, rest in UEBER["punkte"]:
+        y += lay.zeile
+        abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.fliess}" fill="{GRUEN}">▸</text>')
+        y = absatz(y, f"**{titel}** {rest}", lay.fliess, zeichen_pro_zeile - int(einzug / (lay.fliess * ZEICHEN_EM)) - 1, x + einzug)
+
+    # --- stack
+    y += lay.abschnitt
+    befehl(y, "ls", "~/stack")
+    y += 6
+    if lay.schmal:  # Bereich als eigene Zeile, darunter die Technologien
+        for bereich, dinge in STACK:
+            y += lay.zeile + 14
+            abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.fliess}" fill="{GRAU}">{esc(bereich)}</text>')
+            for reihe in _reihen(dinge, zeichen_pro_zeile):
+                y += lay.zeile
+                abschnitt(_liste(x, y, reihe, lay.fliess))
+    else:
+        spalte = x + max(len(b) for b, _ in STACK) * lay.fliess * ZEICHEN_EM + 40
+        max_stack = int((w - x - spalte) / (lay.fliess * ZEICHEN_EM))
+        for bereich, dinge in STACK:
+            y += lay.zeile + 6
+            zeilen = [f'<text x="{x}" y="{y}" font-size="{lay.fliess}" fill="{GRAU}">{esc(bereich)}</text>']
+            for i, reihe in enumerate(_reihen(dinge, max_stack)):
+                zeilen.append(_liste(spalte, y + i * lay.zeile, reihe, lay.fliess))
+            y += (len(zeilen) - 2) * lay.zeile
+            abschnitt("".join(zeilen))
+
+    # --- live: GitHub
+    y += lay.abschnitt
+    befehl(y, "repo-radar", "--profil")
+    zahlen = [(gh["repos"], "repos"), (gh["sterne"], "sterne"), (gh["forks"], "forks"), (gh["prs"], "prs gemergt")]
+    paare = [f'<tspan fill="{WEISS}" font-weight="bold">{n}</tspan> <tspan fill="{GRAU}">{esc(t)}</tspan>'
+             for n, t in zahlen]
+    gruppen = [paare[:2], paare[2:]] if lay.schmal else [paare]
+    y += 10
+    for gruppe in gruppen:
+        y += lay.zeile
+        abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.fliess}" xml:space="preserve">'
+                  + "   ".join(gruppe) + "</text>")
+    y += lay.zeile
+    abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.fliess}" fill="{GRAU}">sprachen</text>'
+              + _liste(x + 9 * lay.fliess * ZEICHEN_EM + 10, y, gh["sprachen"] or ["–"], lay.fliess))
+
+    # --- live: YouTube
+    y += lay.abschnitt
+    befehl(y, "youtube", "--neueste")
+    y += 10
+    for video in videos:
+        y += lay.zeile
+        datum = datetime.fromisoformat(video["datum"]).strftime("%d.%m.")
+        abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.fliess}" fill="{GRAU}">{datum}</text>')
+        y = absatz(y, kuerzen(video["titel"], 200), lay.fliess, zeichen_pro_zeile - 8,
+                   x + 8 * lay.fliess * ZEICHEN_EM, WEISS)
+
+    # --- Eingabezeile am Ende
+    y += lay.abschnitt
+    abschnitt(f'<text x="{x}" y="{y}" font-size="{lay.befehl}" font-weight="bold" fill="{GRUEN}">$'
+              f'<tspan class="cursor-text"> █</tspan></text>')
+    hoehe = y + round(lay.abschnitt * .8)
+
+    # Leiser Matrix-Regen nur oben rechts neben dem Namen
+    # (auf dem Handy liefe er hinter dem Namen - dort weglassen)
+    regen_hoehe = round(lay.name * 4.2)
+    regen_css, regen = matrix_regen(random.Random(7), regen_hoehe, x_von=w - round(w * .35),
+                                    x_bis=w - 20, dichte=0 if lay.schmal else .5, groesse=15)
+    stil = regen_css + FENSTER_STIL + CURSOR_TEXT + """  .buchstabe { animation: an .01s steps(1) both; }
+  @keyframes an { from { opacity: 0; } to { opacity: 1; } }
+"""
+    kopf_y = lay.leiste
+    defs = f"""  <clipPath id="rahmen"><rect width="{w}" height="{hoehe}" rx="18"/></clipPath>
+  <clipPath id="kopfbereich"><rect y="{kopf_y}" width="{w}" height="{regen_hoehe}"/></clipPath>
+  <linearGradient id="regen-weg" x1="0" x2="1">
+    <stop offset="0" stop-color="{GRUND}"/><stop offset=".45" stop-color="{GRUND}" stop-opacity=".6"/>
+    <stop offset="1" stop-color="{GRUND}" stop-opacity=".15"/>
+  </linearGradient>
+  <linearGradient id="regen-unten" x1="0" y1="0" x2="0" y2="1">
+    <stop offset=".5" stop-color="{GRUND}" stop-opacity="0"/><stop offset="1" stop-color="{GRUND}"/>
+  </linearGradient>
+"""
+    regen_b = round(w * .37)
+    punkte_x = [lay.leiste * .6 + i * lay.leiste * .42 for i in range(3)]
+    ampel = "".join(f'<circle cx="{cx:.0f}" cy="{lay.leiste / 2:.0f}" r="{lay.leiste * .125:.1f}" fill="{f}"/>'
+                    for cx, f in zip(punkte_x, ("#FF5F57", "#FEBC2E", "#28C840")))
+    leiste_schrift = round(lay.leiste * .31)
+    titel_x = w / 2 if not lay.schmal else punkte_x[-1] + lay.leiste * .5
+    anker = "middle" if not lay.schmal else "start"
+    nl = "\n  "
+    inhalt = f"""<g clip-path="url(#rahmen)">
+  <rect width="{w}" height="{hoehe}" fill="{GRUND}"/>
+  <g clip-path="url(#kopfbereich)">
+{regen}
+    <rect x="{w - regen_b}" y="{kopf_y}" width="{regen_b}" height="{regen_hoehe}" fill="url(#regen-weg)"/>
+    <rect x="{w - regen_b}" y="{kopf_y}" width="{regen_b}" height="{regen_hoehe}" fill="url(#regen-unten)"/>
+  </g>
+  <rect width="{w}" height="{lay.leiste}" fill="{FLAECHE}"/>
+  <path d="M0 {lay.leiste + .5}h{w}" stroke="{LINIE}"/>
+  {ampel}
+  <text x="{titel_x:.0f}" y="{lay.leiste / 2 + leiste_schrift * .36:.0f}" font-size="{leiste_schrift}" fill="{GRAU}" text-anchor="{anker}">jacob@decoded: ~</text>
+  <text x="{w - 28}" y="{lay.leiste / 2 + leiste_schrift * .36:.0f}" font-size="{leiste_schrift - 2}" fill="{GRAU}" text-anchor="end">live · {stand:%d.%m.%Y}</text>
+  {nl.join(teile)}
+</g>
+<rect x=".5" y=".5" width="{w - 1}" height="{hoehe - 1}" rx="18" fill="none" stroke="{GRUEN}" stroke-opacity=".25"/>
+"""
+    label = " ".join([
+        "jacob.decoded –", UEBER["rollen"] + ".", UEBER["claim"], UEBER["gruss"],
+        *[ohne_auszeichnung(a) for a in UEBER["absaetze"]],
+        *[f"{t} {ohne_auszeichnung(r)}." for t, r in UEBER["punkte"]],
+        "Technologien:", *[f"{b}: {', '.join(d)}." for b, d in STACK],
+        f"GitHub: {gh['repos']} Repos, {gh['sterne']} Sterne, {gh['forks']} Forks, {gh['prs']} gemergte Pull Requests.",
+        "Neueste Videos:", *[v["titel"] + "." for v in videos],
+    ])
+    return svg(hoehe, label, stil, defs, inhalt, weite=w)
 
 
-def stack() -> str:
-    """Technologien als Etiketten je Bereich, automatisch umbrochen."""
-    groesse, zeilenhoehe, abstand = 19, 56, 22
-    rechts = W - 48
-    x_start = RAND_X + max(breite(b, 20) for b, _ in STACK) + 36
-
-    gruppen, trenner, y = [], [], 132
-    for n, (bereich, dinge) in enumerate(STACK):
-        if n:
-            trenner.append(trennlinie(y - abstand / 2 - 4))
-        teile = [f'<text x="{RAND_X}" y="{y + 28}" font-size="20" font-weight="bold" fill="{GRUEN}">{esc(bereich)}</text>']
-        x = x_start
-        for ding in dinge:
-            if x + breite(ding, groesse) + 36 > rechts:
-                x, y = x_start, y + zeilenhoehe
-            etikett, b = pille(x, y, ding, groesse)
-            teile.append(etikett)
-            x += b + 10
-        gruppen.append(f'  <g class="rein" style="animation-delay:{0.15 + n * 0.15:.2f}s">{"".join(teile)}</g>')
-        y += zeilenhoehe + abstand
-    hoehe = y - abstand + 30
-
-    nl = "\n"
-    inhalt = (fenster(hoehe, "jacob@decoded: ~", "ls", "~/stack") + "  " + "".join(trenner) + nl
-              + nl.join(gruppen) + "\n</g>\n" + rand(hoehe))
-    label = "Technologien & Tools – " + "; ".join(f"{b}: {', '.join(d)}" for b, d in STACK)
-    return svg(hoehe, label, FENSTER_STIL, verlaeufe(hoehe), inhalt)
+def _reihen(dinge: list[str], max_zeichen: int) -> list[list[str]]:
+    """Verteilt Technologien als ganze Einheiten auf Zeilen."""
+    reihen: list[list[str]] = [[]]
+    laenge = 0
+    for ding in dinge:
+        if reihen[-1] and laenge + 3 + len(ding) > max_zeichen:
+            reihen.append([])
+            laenge = 0
+        laenge += len(ding) + (3 if reihen[-1] else 0)
+        reihen[-1].append(ding)
+    return reihen
 
 
-# ---------------------------------------------------------------- Links und Fuß
+def _liste(x: float, y: float, dinge: list[str], groesse: int) -> str:
+    trenner = f'<tspan fill="{GRUEN}" fill-opacity=".5"> · </tspan>'
+    return (f'<text x="{x:.0f}" y="{y:.0f}" font-size="{groesse}" fill="{WEISS}" xml:space="preserve">'
+            + trenner.join(esc(d) for d in dinge) + "</text>")
+
+
+# ---------------------------------------------------------------- Links
 
 def link(text: str, zeichen: str) -> str:
     """Einzelnes Link-Etikett für die Zeile unter der Begrüßung."""
     etikett, b = pille(1, 1, text, zeichen=zeichen)
     return svg(42, text, "", "", etikett + "\n", weite=round(b + 2))
-
-
-def fuss() -> str:
-    H = 110
-    css, regen = matrix_regen(random.Random(3), H, dichte=.8, groesse=13)
-    stil = css + CURSOR_TEXT + BEWEGUNG_AUS
-    defs = verlaeufe(H) + f"""  <radialGradient id="mitte" cx=".5" cy=".5" r=".5">
-    <stop offset="0" stop-color="{GRUND}" stop-opacity=".97"/><stop offset=".6" stop-color="{GRUND}" stop-opacity=".85"/>
-    <stop offset="1" stop-color="{GRUND}" stop-opacity=".3"/>
-  </radialGradient>
-"""
-    zeile2 = f"Danke fürs Vorbeischauen – mehr auf {WEBSITE}"
-    inhalt = f"""<g clip-path="url(#rahmen)">
-  <rect width="{W}" height="{H}" fill="{GRUND}"/>
-{regen}
-  <rect width="{W}" height="{H}" fill="url(#kanten)"/>
-  <rect x="{W / 2 - 430:.0f}" y="0" width="860" height="{H}" fill="url(#mitte)"/>
-  <text x="{W / 2:.0f}" y="48" font-size="20" text-anchor="middle" fill="{GRUEN}"><tspan font-weight="bold">$ exit</tspan><tspan class="cursor-text"> █</tspan></text>
-  <text x="{W / 2:.0f}" y="80" font-size="16" fill="{GRAU}" text-anchor="middle">{esc(zeile2)}</text>
-</g>
-{rand(H)}"""
-    return svg(H, zeile2, stil, defs, inhalt)
 
 
 # ---------------------------------------------------------------- Aufruf
@@ -599,12 +537,11 @@ def main() -> int:
             strom.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description="Baut die Profil-Grafiken im jacob.decoded-Look.")
     parser.add_argument("--nur-statisch", action="store_true",
-                        help="nur Köpfe, Stack und Fuß bauen (keine Netzabfragen)")
+                        help="nur die Link-Etiketten bauen (keine Netzabfragen)")
     args = parser.parse_args()
     ASSETS.mkdir(parents=True, exist_ok=True)
 
     statisch = {f"link-{name}.svg": link(text, zeichen) for name, text, zeichen in LINKS}
-    statisch |= {"ueber-mich.svg": ueber_mich(), "stack.svg": stack(), "fuss.svg": fuss()}
     for name, inhalt in statisch.items():
         if schreiben(ASSETS / name, inhalt):
             print(f"geschrieben: assets/{name}")
@@ -615,20 +552,21 @@ def main() -> int:
         gh = github_daten(NUTZER)
         videos = youtube_videos(KANAL_ID)
     except (urllib.error.URLError, TimeoutError, ET.ParseError, KeyError, ValueError) as fehler:
-        # Altes Banner bleibt stehen; in der Action als Warnung sichtbar, nicht als Fehler
-        print(f"::warning::Live-Daten nicht abrufbar, Banner bleibt unverändert: {fehler}")
+        # Alter Stand bleibt stehen; in der Action als Warnung sichtbar, nicht als Fehler
+        print(f"::warning::Live-Daten nicht abrufbar, Profil bleibt unverändert: {fehler}")
         return 0
 
     # Fingerabdruck aus Daten und Skript: nur bei echten Änderungen neu schreiben
     daten = json.dumps({"gh": gh, "videos": videos}, sort_keys=True).encode()
     abdruck = hashlib.sha256(daten + Path(__file__).read_bytes()).hexdigest()[:16]
-    ziel = ASSETS / "banner.svg"
+    ziel = ASSETS / "profil.svg"
     if ziel.exists() and f"<!-- daten:{abdruck} -->" in ziel.read_text(encoding="utf-8"):
-        print("banner.svg: Daten unverändert")
+        print("profil.svg: Daten unverändert")
         return 0
-    inhalt = banner(gh, videos, datetime.now(timezone.utc)) + f"<!-- daten:{abdruck} -->\n"
-    schreiben(ziel, inhalt)
-    print(f"geschrieben: assets/banner.svg ({gh['repos']} Repos, {gh['sterne']} Sterne, "
+    jetzt = datetime.now(timezone.utc)
+    for name, lay in (("profil.svg", DESKTOP), ("profil-handy.svg", HANDY)):
+        schreiben(ASSETS / name, sitzung(gh, videos, jetzt, lay) + f"<!-- daten:{abdruck} -->\n")
+    print(f"geschrieben: assets/profil.svg und profil-handy.svg ({gh['repos']} Repos, {gh['sterne']} Sterne, "
           f"{gh['prs']} PRs, neuestes Video: {videos[0]['titel'] if videos else '–'})")
     return 0
 

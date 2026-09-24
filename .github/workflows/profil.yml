@@ -1,4 +1,4 @@
-name: Banner aktualisieren
+name: Profil aktualisieren
 
 on:
   schedule:
@@ -8,17 +8,17 @@ on:
     branches: [main]
     paths:
       - scripts/profil.py
-      - .github/workflows/banner.yml
+      - .github/workflows/profil.yml
 
 permissions:
   contents: write
 
 concurrency:
-  group: banner
+  group: profil
   cancel-in-progress: false
 
 jobs:
-  banner:
+  profil:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -42,5 +42,5 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Banner: Stand $(date +%d.%m.%Y)"
+          git commit -m "Profil: Stand $(date +%d.%m.%Y)"
           git push
